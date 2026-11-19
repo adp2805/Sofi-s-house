@@ -2,13 +2,15 @@
 <html lang="ro" id="site">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>A-frame Sofi's House · Cazare în Valea Doftanei</title>
 <meta name="description" content="Cabană modernă în stil A-frame în Valea Doftanei, Prahova. Ferestre panoramice, priveliște montană. Rezervă acum.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/hero1.jpg" as="image" fetchpriority="high">
 <!-- EmailJS (pentru trimitere cereri rezervare) -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -19,7 +21,7 @@
 body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--text-dark);line-height:1.7;}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:100;background:rgba(44,74,62,0.97);backdrop-filter:blur(8px);padding:0 2rem;}
+nav{position:sticky;top:0;z-index:100;background:rgba(44,74,62,0.98);padding:0 2rem;}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
 .nav-logo{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:18px;letter-spacing:.5px;cursor:pointer;}
 .nav-links{display:flex;gap:1.5rem;align-items:center;}
@@ -27,19 +29,25 @@ nav{position:sticky;top:0;z-index:100;background:rgba(44,74,62,0.97);backdrop-fi
 .nav-links a:hover{color:var(--gold-light);}
 .lang-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;letter-spacing:1px;transition:all .2s;font-family:'Lato',sans-serif;}
 .lang-btn:hover{background:var(--gold);color:var(--forest);}
+.nav-right{display:flex;align-items:center;gap:1.5rem;}
+.nav-toggle{display:none;background:transparent;border:none;width:44px;height:44px;cursor:pointer;padding:10px;flex-direction:column;justify-content:center;gap:5px;}
+.nav-toggle span{display:block;height:2px;width:100%;background:var(--gold-light);border-radius:2px;transition:transform .25s,opacity .25s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* ── HERO ── */
-.hero{min-height:85vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--forest);}
+.hero{min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--forest);}
 .hero-slides{position:absolute;inset:0;}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease-in-out;}
 .hero-slide.active{opacity:1;}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(20,40,30,.72) 0%,rgba(30,60,45,.55) 100%);z-index:1;}
-.hero-content{z-index:2;}
 .hero-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:9px;z-index:2;}
-.hero-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .2s;border:none;padding:0;}
+.hero-dot{position:relative;width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .2s;border:none;padding:0;}
+.hero-dot::after{content:"";position:absolute;inset:-12px -6px;}
 .hero-dot.active{background:var(--gold-light);width:24px;border-radius:5px;}
-.hero-content{text-align:center;z-index:1;padding:2rem;position:relative;}
+.hero-content{text-align:center;z-index:2;padding:2rem 2rem 4rem;position:relative;}
 .hero-eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);color:var(--white);line-height:1.15;margin-bottom:.5rem;}
 .hero-title em{color:var(--gold-light);font-style:italic;}
@@ -56,10 +64,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(44,74,62,0.97);backdrop-fi
 
 /* ── SHARED SECTION STYLES ── */
 .divider{height:3px;width:48px;background:var(--gold);margin:0 auto 1.5rem;}
-section{padding:5rem 2rem;}
+section{padding:5rem 2rem;scroll-margin-top:64px;}
 .section-inner{max-width:1100px;margin:0 auto;}
 .section-header{text-align:center;margin-bottom:3rem;}
-.section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.5rem;}
+.section-label{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.5rem;}
 .section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);color:var(--text-dark);line-height:1.2;}
 
 /* ── ABOUT ── */
@@ -82,20 +90,21 @@ section{padding:5rem 2rem;}
 .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
 .gallery-item:first-child img{min-height:340px;}
 .gallery-item:not(:first-child) img{height:200px;}
-.gallery-item:hover img{transform:scale(1.04);}
+@media(hover:hover){.gallery-item:hover img{transform:scale(1.04);}}
+@media(min-width:701px){.gallery-item:nth-child(5):last-child{grid-column:span 2;}}
 
 /* ── AVAILABILITY / CALENDAR ── */
 .availability-section{background:var(--forest);color:var(--white);}
 .availability-section .section-title{color:var(--white);}
 .calendar-container{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:2rem;max-width:820px;margin:0 auto;}
 .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
-.cal-nav{background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--white);width:36px;height:36px;border-radius:3px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.cal-nav{flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--white);width:40px;height:40px;border-radius:3px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .cal-nav:hover{background:var(--gold);border-color:var(--gold);color:var(--forest);}
 .cal-month{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
 .cal-day-name{text-align:center;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);padding:6px 0;}
 .cal-day{text-align:center;padding:8px 4px;border-radius:3px;font-size:14px;cursor:pointer;transition:all .15s;color:rgba(255,255,255,.8);}
-.cal-day:hover:not(.booked):not(.empty):not(.past){background:rgba(200,151,58,.25);color:var(--gold-light);}
+@media(hover:hover){.cal-day:hover:not(.booked):not(.empty):not(.past){background:rgba(200,151,58,.25);color:var(--gold-light);}}
 .cal-day.today{background:rgba(200,151,58,.3);color:var(--gold-light);font-weight:700;}
 .cal-day.booked{background:rgba(200,70,70,.25);color:rgba(255,120,120,.7);cursor:not-allowed;text-decoration:line-through;}
 .cal-day.past{color:rgba(255,255,255,.2);cursor:default;}
@@ -124,6 +133,7 @@ section{padding:5rem 2rem;}
 }
 .booking-summary.visible{ display:grid; }
 .bs-item{
+  min-width:0;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   padding:1.5rem 1rem;gap:8px;text-align:center;
   border-right:1px solid rgba(200,151,58,0.2);
@@ -139,7 +149,7 @@ section{padding:5rem 2rem;}
 }
 .bs-icon{ font-size:22px;height:32px;line-height:1;display:flex;align-items:center;justify-content:center; }
 .bs-label{
-  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
   color:rgba(255,255,255,.5);white-space:nowrap;
 }
 .bs-value{
@@ -149,10 +159,14 @@ section{padding:5rem 2rem;}
 .bs-item.bs-price .bs-value{
   color:var(--gold-light);font-size:22px;
 }
-@media(max-width:600px){
+@media(max-width:760px){
   .booking-summary{ grid-template-columns:1fr 1fr; }
+  .bs-item{ padding:1rem .5rem; }
   .bs-item:nth-child(2){ border-right:none; }
   .bs-item:nth-child(1),.bs-item:nth-child(2){ border-bottom:1px solid rgba(200,151,58,0.2); }
+  .bs-label{ white-space:normal;letter-spacing:1px; }
+  .bs-value{ white-space:normal;font-size:17px;line-height:1.25; }
+  .bs-item.bs-price .bs-value{ font-size:19px; }
 }
 .sync-box{margin-top:2rem;background:rgba(255,255,255,.04);border:1px dashed rgba(200,151,58,.4);border-radius:6px;padding:1.5rem;text-align:center;}
 .sync-box p{color:rgba(255,255,255,.6);font-size:13px;margin-bottom:1rem;}
@@ -186,12 +200,12 @@ section{padding:5rem 2rem;}
 .contact-info-list{display:flex;flex-direction:column;gap:1.25rem;margin-top:1.5rem;}
 .contact-item{display:flex;align-items:flex-start;gap:14px;}
 .contact-icon{width:40px;height:40px;background:rgba(44,74,62,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+.contact-detail{min-width:0;overflow-wrap:anywhere;}
+.contact-detail a{display:inline-block;padding:4px 0;}
 .contact-detail strong{display:block;font-size:14px;color:var(--text-dark);margin-bottom:2px;}
 .contact-detail span,.contact-detail a{font-size:14px;color:var(--text-mid);}
 .contact-detail a{color:var(--forest-light);text-decoration:none;}
 .contact-detail a:hover{color:var(--gold);}
-.map-frame{border-radius:6px;overflow:hidden;height:280px;border:1px solid rgba(0,0,0,.08);}
-.map-frame iframe{width:100%;height:100%;border:none;}
 
 /* ── REVIEWS ── */
 .reviews-section{background:var(--cream);}
@@ -211,39 +225,41 @@ section{padding:5rem 2rem;}
 
 /* ── WHATSAPP ── */
 .whatsapp-btn{position:fixed;bottom:28px;right:28px;z-index:900;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);text-decoration:none;transition:all .3s;}
-.whatsapp-btn:hover{transform:scale(1.1);}
+@media(hover:hover){.whatsapp-btn:hover{transform:scale(1.1);}}
+body.lb-open .whatsapp-btn{display:none;}
 .whatsapp-btn svg{width:30px;height:30px;fill:#fff;}
 
 /* ── LIGHTBOX (professional) ── */
-.lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(15,25,20,0.97);flex-direction:column;animation:lbFadeIn .25s ease;}
+.lightbox{display:none;position:fixed;inset:0;height:100vh;height:100dvh;z-index:999;background:rgba(15,25,20,0.97);flex-direction:column;animation:lbFadeIn .25s ease;overscroll-behavior:contain;}
 .lightbox.open{display:flex;}
 @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
 .lb-topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;flex-shrink:0;}
 .lb-counter{color:rgba(255,255,255,.9);font-size:14px;letter-spacing:1px;font-family:'Playfair Display',serif;}
 .lb-counter b{color:var(--gold-light);font-weight:600;}
-.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;padding:0 16px;}
+.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;padding:0 16px;overflow:hidden;}
 .lb-content{position:relative;max-width:88vw;max-height:100%;display:flex;flex-direction:column;align-items:center;gap:14px;}
-.lb-content img{max-width:92vw;max-height:80vh;object-fit:contain;border-radius:6px;box-shadow:0 24px 70px rgba(0,0,0,0.6);}
+.lb-content img{max-width:92vw;max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px);object-fit:contain;border-radius:6px;box-shadow:0 24px 70px rgba(0,0,0,0.6);}
 .lb-content img.lb-anim{animation:lbSlide .3s ease;}
 @keyframes lbSlide{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
 .lb-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--white);width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.lb-close:hover{background:var(--gold);border-color:var(--gold);color:var(--forest);transform:rotate(90deg);}
+@media(hover:hover){.lb-close:hover{background:var(--gold);border-color:var(--gold);color:var(--forest);transform:rotate(90deg);}}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:var(--white);width:52px;height:52px;border-radius:50%;font-size:22px;cursor:pointer;transition:all .2s;z-index:2;display:flex;align-items:center;justify-content:center;}
 .lb-nav:hover{background:var(--gold);border-color:var(--gold);color:var(--forest);}
 .lb-prev{left:20px;}.lb-next{right:20px;}
-.lb-thumbs{display:flex;gap:8px;padding:10px 24px 16px;overflow-x:auto;flex-shrink:0;justify-content:center;scrollbar-width:thin;}
+.lb-thumbs{display:flex;gap:8px;padding:10px 24px 16px;overflow-x:auto;flex-shrink:0;justify-content:flex-start;scrollbar-width:thin;padding-bottom:calc(16px + env(safe-area-inset-bottom));}
+.lb-thumb:first-child{margin-left:auto;}.lb-thumb:last-child{margin-right:auto;}
 .lb-thumb{width:56px;height:42px;border-radius:4px;overflow:hidden;cursor:pointer;flex-shrink:0;opacity:.45;transition:all .2s;border:2px solid transparent;}
 .lb-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 .lb-thumb.active{opacity:1;border-color:var(--gold);}
 @media(max-width:600px){
   .lb-prev{left:8px;}.lb-next{right:8px;}
   .lb-nav{width:42px;height:42px;font-size:18px;background:rgba(0,0,0,0.4);}
-  .lb-content img{max-width:96vw;max-height:72vh;}
+  .lb-content img{max-width:96vw;}
   .lb-thumb{width:52px;height:40px;}
   .lb-topbar{padding:14px 16px;}
 }
 
-footer{background:var(--text-dark);color:rgba(255,255,255,.5);text-align:center;padding:2rem;font-size:13px;}
+footer{background:var(--text-dark);color:rgba(255,255,255,.5);text-align:center;padding:2rem 2rem calc(5rem + env(safe-area-inset-bottom));font-size:13px;}
 footer strong{color:var(--gold-light);}
 
 /* ── RESPONSIVE ── */
@@ -252,9 +268,61 @@ footer strong{color:var(--gold-light);}
   .gallery-grid{grid-template-columns:1fr 1fr;}
   .gallery-item:first-child{grid-column:span 2;}
   .about-features{grid-template-columns:1fr;}
-  .nav-links a:not(.lang-btn){display:none;}
   .form-grid{grid-template-columns:1fr;}
   .form-group.full{grid-column:span 1;}
+
+  /* meniu mobil */
+  nav{padding:0 1rem;}
+  .nav-right{gap:.5rem;}
+  .nav-toggle{display:flex;}
+  .lang-btn{padding:8px 12px;}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--forest);padding:.5rem 1.25rem 1rem;box-shadow:0 12px 24px rgba(0,0,0,.25);}
+  .nav-links.open{display:flex;}
+  .nav-links a{display:block;padding:14px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .nav-links a:last-child{border-bottom:none;}
+
+  /* spatii mai mici pe telefon */
+  section{padding:3.5rem 1rem;}
+  .section-header{margin-bottom:2rem;}
+  .calendar-container{padding:1rem .6rem;}
+  .cal-header{margin-bottom:1rem;}
+  .cal-month{font-size:19px;text-align:center;}
+  .cal-grid{gap:2px;}
+  .cal-day{padding:0;min-height:42px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+  .cal-day-name{font-size:12px;letter-spacing:0;}
+  .booking-form{padding:1.25rem 1rem;}
+  .form-group input,.form-group textarea{font-size:16px;padding:12px;}
+  .btn-cancel{padding:12px 20px;}
+  .about-img,.about-img img{min-height:260px;}
+  .gallery-item:first-child img{min-height:240px;}
+  .gallery-item:not(:first-child) img{height:150px;}
+
+  /* hero */
+  .hero-content{padding:2rem 1.25rem 4rem;}
+  .hero-eyebrow{font-size:11px;letter-spacing:1.5px;}
+  .hero-title{font-size:clamp(32px,9vw,44px);}
+  .hero-subtitle{font-size:15px;margin:1rem auto 1.75rem;}
+
+  /* whatsapp */
+  .whatsapp-btn{width:50px;height:50px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));}
+  .whatsapp-btn svg{width:26px;height:26px;}
+  .whatsapp-btn{transition:opacity .25s,transform .25s;}
+  .whatsapp-btn.wa-hidden{opacity:0;transform:scale(.6);pointer-events:none;}
+}
+
+/* telefon pe orizontala / ecrane joase */
+@media(max-height:500px) and (orientation:landscape){
+  .hero{min-height:auto;}
+  .hero-content{padding:1.5rem 2rem 3rem;}
+  .hero-title{font-size:32px;}
+  .hero-eyebrow{margin-bottom:.5rem;}
+  .hero-subtitle{margin:.5rem auto 1.25rem;}
+  .hero-dots{bottom:12px;}
+  .lb-topbar{padding:8px 16px;}
+  .lb-close{width:36px;height:36px;}
+  .lb-thumbs{padding-top:6px;padding-bottom:8px;}
+  .lb-thumb{width:48px;height:34px;}
+  .lb-content img{max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px);}
 }
 </style>
 </head>
@@ -263,14 +331,17 @@ footer strong{color:var(--gold-light);}
 <!-- ══════════════ NAV ══════════════ -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo" onclick="goTo('hero')" id="nav-logo"></div>
-    <div class="nav-links">
-      <a onclick="goTo('about')"        data-ro="Despre noi"      data-en="About us"></a>
-      <a onclick="goTo('gallery')"      data-ro="Galerie"         data-en="Gallery"></a>
-      <a onclick="goTo('availability')" data-ro="Disponibilitate" data-en="Availability"></a>
-      <a onclick="goTo('reviews')"      data-ro="Recenzii"        data-en="Reviews" id="nav-reviews" style="display:none;"></a>
-      <a onclick="goTo('contact')"      data-ro="Contact"         data-en="Contact"></a>
+    <div class="nav-logo" onclick="goTo('hero')" id="nav-logo">A-frame Sofi's House</div>
+    <div class="nav-right">
+      <div class="nav-links" id="navLinks">
+        <a href="#about"        onclick="goTo('about');return false;"        data-ro="Despre noi"      data-en="About us"></a>
+        <a href="#gallery"      onclick="goTo('gallery');return false;"      data-ro="Galerie"         data-en="Gallery"></a>
+        <a href="#availability" onclick="goTo('availability');return false;" data-ro="Disponibilitate" data-en="Availability"></a>
+        <a href="#reviews"      onclick="goTo('reviews');return false;"      data-ro="Recenzii"        data-en="Reviews" id="nav-reviews" style="display:none;"></a>
+        <a href="#contact"      onclick="goTo('contact');return false;"      data-ro="Contact"         data-en="Contact"></a>
+      </div>
       <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+      <button class="nav-toggle" id="navToggle" onclick="toggleMenu()" aria-label="Meniu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
@@ -281,9 +352,9 @@ footer strong{color:var(--gold-light);}
   <div class="hero-overlay"></div>
   <div class="hero-dots" id="hero-dots"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow" id="hero-location"></p>
-    <h1 class="hero-title" id="hero-title"></h1>
-    <p class="hero-subtitle" id="hero-subtitle"></p>
+    <p class="hero-eyebrow" id="hero-location">Valea Doftanei · Prahova · România</p>
+    <h1 class="hero-title" id="hero-title">A-frame Sofi's <em>House</em></h1>
+    <p class="hero-subtitle" id="hero-subtitle">Un refugiu modern și liniștit în mijlocul naturii.</p>
     <div class="hero-cta">
       <button class="btn-primary" onclick="goTo('availability')" id="btn-check"></button>
       <button class="btn-outline"  onclick="goTo('gallery')"      id="btn-discover"></button>
@@ -295,7 +366,7 @@ footer strong{color:var(--gold-light);}
 <section class="about-section" id="about">
   <div class="section-inner">
     <div class="about-grid">
-      <div class="about-img"><img id="about-img" src="" alt=""></div>
+      <div class="about-img"><img id="about-img" alt="" loading="lazy" decoding="async" sizes="(max-width:700px) 100vw, 550px"></div>
       <div class="about-text">
         <div class="section-header" style="text-align:left;margin-bottom:1.5rem;">
           <span class="section-label" id="about-label"></span>
@@ -486,9 +557,6 @@ fetch('config.json?v=' + Date.now())
   .then(function(r){ return r.json(); })
   .then(function(data){
     cfg = data;
-    if(cfg.booking.emailjs_public_key){
-      emailjs.init(cfg.booking.emailjs_public_key);
-    }
     renderAll();
     loadIcalAvailability();
   })
@@ -513,6 +581,15 @@ function renderAll(){
 
 function t(key_ro, key_en){ return lang === 'ro' ? key_ro : key_en; }
 function el(id){ return document.getElementById(id); }
+
+// Varianta mica a unei poze (assets/x.jpg -> assets/sm/x.jpg), generata de tools/optimize_images.py
+function smSrc(src){ return src.replace(/^assets\//, 'assets/sm/'); }
+// <img> responsive: telefonul ia varianta mica, desktopul pe cea mare; daca lipseste varianta mica, cade pe original
+function setResponsiveImg(img, src){
+  img.onerror = function(){ if(img.dataset.fallback) return; img.dataset.fallback = '1'; img.removeAttribute('srcset'); img.src = src; };
+  img.srcset = smSrc(src) + ' 800w, ' + src + ' 2000w';
+  img.src = src;
+}
 
 function renderNav(){
   el('nav-logo').textContent = cfg.site.name;
@@ -564,7 +641,9 @@ function buildHero(){
   slides.forEach(function(src, i){
     var d = document.createElement('div');
     d.className = 'hero-slide' + (i === 0 ? ' active' : '');
-    d.style.backgroundImage = "url('" + src + "')";
+    d.dataset.bg = src;
+    // doar primul slide se incarca imediat; celelalte se incarca pe rand (vezi preloadSlide)
+    if(i === 0) d.style.backgroundImage = "url('" + src + "')";
     wrap.appendChild(d);
     if(slides.length > 1){
       var b = document.createElement('button');
@@ -576,14 +655,33 @@ function buildHero(){
 
   heroIdx = 0;
   if(slides.length > 1){
-    heroTimer = setInterval(function(){ heroGoTo((heroIdx + 1) % slides.length); }, 5000);
+    preloadSlide(1);
+    heroTimer = setInterval(function(){
+      if(document.hidden) return;
+      heroGoTo((heroIdx + 1) % slides.length);
+    }, 5000);
   }
+}
+
+function loadSlideBg(s){
+  if(s && s.dataset.bg && !s.style.backgroundImage) s.style.backgroundImage = "url('" + s.dataset.bg + "')";
+}
+// incarca in fundal poza urmatoare, ca tranzitia sa nu arate un slide gol
+function preloadSlide(idx){
+  var slides = document.querySelectorAll('.hero-slide');
+  var s = slides[idx];
+  if(!s || !s.dataset.bg || s.style.backgroundImage) return;
+  var im = new Image();
+  im.onload = function(){ loadSlideBg(s); };
+  im.src = s.dataset.bg;
 }
 
 function heroGoTo(idx){
   var slides = document.querySelectorAll('.hero-slide');
   var dots = document.querySelectorAll('.hero-dot');
   if(!slides.length) return;
+  loadSlideBg(slides[idx]);
+  preloadSlide((idx + 1) % slides.length);
   slides[heroIdx] && slides[heroIdx].classList.remove('active');
   dots[heroIdx] && dots[heroIdx].classList.remove('active');
   heroIdx = idx;
@@ -596,7 +694,10 @@ function renderAbout(){
   el('about-title').textContent = t(cfg.about.title_ro, cfg.about.title_en);
   el('about-desc1').textContent = t(cfg.about.description_ro, cfg.about.description_en);
   el('about-desc2').textContent = t(cfg.about.description2_ro, cfg.about.description2_en);
-  el('about-img').src = cfg.images.about;
+  if(el('about-img').dataset.src !== cfg.images.about){
+    el('about-img').dataset.src = cfg.images.about;
+    setResponsiveImg(el('about-img'), cfg.images.about);
+  }
   el('about-img').alt = cfg.site.name;
   var feat = el('about-features');
   feat.innerHTML = '';
@@ -618,7 +719,13 @@ function renderGallery(){
     var div = document.createElement('div');
     div.className = 'gallery-item';
     div.style.cursor = 'pointer';
-    div.innerHTML = '<img src="'+img.src+'" alt="'+t(img.alt_ro,img.alt_en)+'" loading="lazy">';
+    var im = document.createElement('img');
+    im.alt = t(img.alt_ro, img.alt_en);
+    im.loading = 'lazy';
+    im.decoding = 'async';
+    im.sizes = index === 0 ? '(max-width:700px) 100vw, 730px' : '(max-width:700px) 50vw, 360px';
+    setResponsiveImg(im, img.src);
+    div.appendChild(im);
     div.onclick = function(){ openLightbox(index); };
     grid.appendChild(div);
   });
@@ -905,8 +1012,8 @@ function submitBooking(){
   el('btn-send').textContent = t('Se trimite...','Sending...');
   el('btn-send').disabled = true;
 
-  if(cfg.booking.emailjs_service_id && cfg.booking.emailjs_template_id){
-    emailjs.send(cfg.booking.emailjs_service_id, cfg.booking.emailjs_template_id, params)
+  if(window.emailjs && cfg.booking.emailjs_service_id && cfg.booking.emailjs_template_id){
+    emailjs.send(cfg.booking.emailjs_service_id, cfg.booking.emailjs_template_id, params, { publicKey: cfg.booking.emailjs_public_key })
       .then(function(){
         showSuccess();
       }, function(err){
@@ -946,12 +1053,24 @@ function openLightbox(index){
   buildThumbs();
   showLbImage();
   document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  // blocare scroll care merge si pe iOS
+  lbScrollY = window.scrollY;
+  document.body.classList.add('lb-open');
+  document.body.style.position = 'fixed';
+  document.body.style.top = (-lbScrollY) + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
 }
 
+var lbScrollY = 0;
 function closeLightbox(){
   document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.classList.remove('lb-open');
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  window.scrollTo(0, lbScrollY);
 }
 
 function lbNav(dir, e){
@@ -968,7 +1087,12 @@ function buildThumbs(){
   cfg.gallery.forEach(function(img, i){
     var th = document.createElement('div');
     th.className = 'lb-thumb' + (i === lbIndex ? ' active' : '');
-    th.innerHTML = '<img src="'+img.src+'" alt="" loading="lazy">';
+    var full = img.src;
+    var ti = document.createElement('img');
+    ti.alt = ''; ti.loading = 'lazy'; ti.decoding = 'async';
+    ti.onerror = function(){ if(ti.src.indexOf('/sm/') > -1) ti.src = full; };
+    ti.src = smSrc(full);
+    th.appendChild(ti);
     th.onclick = function(){ lbGoTo(i); };
     strip.appendChild(th);
   });
@@ -980,7 +1104,9 @@ function showLbImage(){
   el_img.classList.remove('lb-anim');
   void el_img.offsetWidth;
   el_img.classList.add('lb-anim');
-  el_img.src = img.src;
+  el_img.removeAttribute('data-fallback');
+  el_img.sizes = '100vw';
+  setResponsiveImg(el_img, img.src);
   el_img.alt = lang==='ro' ? img.alt_ro : img.alt_en;
   el('lb-counter').innerHTML = '<b>' + (lbIndex+1) + '</b> / ' + cfg.gallery.length;
   var thumbs = document.querySelectorAll('.lb-thumb');
@@ -1018,7 +1144,39 @@ function toggleLang(){
 // ══════════════════════════════════════════
 //  HELPERS
 // ══════════════════════════════════════════
-function goTo(id){ var target = document.getElementById(id); if(target) target.scrollIntoView({behavior:'smooth'}); }
+function goTo(id){
+  closeMenu();
+  var target = document.getElementById(id);
+  if(target) target.scrollIntoView({behavior:'smooth'});
+}
+
+// ── MENIU MOBIL ──
+function toggleMenu(){
+  var open = el('navLinks').classList.toggle('open');
+  el('navToggle').classList.toggle('open', open);
+  el('navToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function closeMenu(){
+  el('navLinks').classList.remove('open');
+  el('navToggle').classList.remove('open');
+  el('navToggle').setAttribute('aria-expanded', 'false');
+}
+document.addEventListener('click', function(e){
+  if(!e.target.closest('nav')) closeMenu();
+});
+
+// Pe telefon, butonul WhatsApp se ascunde cat timp calendarul / formularul sunt pe ecran (nu mai acopera zilele)
+(function(){
+  var cal = document.querySelector('.calendar-container');
+  var form = el('bookingForm');
+  if(!('IntersectionObserver' in window) || !cal) return;
+  var visible = new Set();
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ en.isIntersecting ? visible.add(en.target) : visible.delete(en.target); });
+    el('whatsapp-btn').classList.toggle('wa-hidden', visible.size > 0);
+  }, { rootMargin: '-64px 0px -10% 0px' });
+  io.observe(cal); io.observe(form);
+})();
 </script>
 </body>
 </html>
