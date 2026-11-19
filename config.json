@@ -1,0 +1,85 @@
+{
+  "site": {
+    "name": "A-frame Sofi's House",
+    "tagline_ro": "Un refugiu modern și liniștit în mijlocul naturii.",
+    "tagline_en": "A modern and peaceful retreat surrounded by nature.",
+    "location_label": "Valea Doftanei · Prahova · România"
+  },
+
+  "contact": {
+    "address": "Valea Doftanei, Județul Prahova, România",
+    "maps_url": "https://maps.app.goo.gl/bMeNSePcH2L6Bgv39",
+    "phone": "+40 723 178 871",
+    "phone_href": "+40723178871",
+    "email": "Aframe.sofis.house@gmail.com",
+    "instagram": "@sofis_house_valeadoftanei",
+    "instagram_url": "https://www.instagram.com/sofis_house_valeadoftanei",
+    "checkin_time": "15:00",
+    "checkout_time": "11:00"
+  },
+
+  "about": {
+    "title_ro": "O oază de liniște și relaxare în Valea Doftanei.",
+    "title_en": "An oasis of peace and relaxation in Valea Doftanei.",
+    "description_ro": "Sofi's House este o cabană modernă în stil A-frame, concepută pentru a-ți oferi confortul maxim și o deconectare totală de la agitația zilnică. Situată într-un cadru natural spectaculos din Valea Doftanei, cabana îmbină designul rustic-chic cu facilitățile contemporane, oferind ferestre panoramice mari care aduc natura mai aproape de tine.",
+    "description_en": "Sofi's House is a modern A-frame cabin designed to offer maximum comfort and total relaxation away from daily stress. Located in the picturesque nature of Valea Doftanei, the cabin blends rustic-chic design with contemporary amenities, featuring large panoramic windows that bring nature closer to you.",
+    "description2_ro": "Fie că vrei să-ți savurezi cafeaua de dimineață cu o priveliște superbă asupra munților sau să petreci seri călduroase alături de cei dragi, Sofi's House este locul ideal pentru o vacanță memorabilă.",
+    "description2_en": "Whether you want to enjoy your morning coffee with a breathtaking mountain view or spend cozy evenings with your loved ones, Sofi's House is the ideal place for an unforgettable getaway.",
+    "features": [
+      { "icon": "🪟", "title_ro": "Ferestre panoramice", "title_en": "Panoramic windows", "desc_ro": "Natura, mai aproape de tine",   "desc_en": "Nature, closer to you" },
+      { "icon": "✨", "title_ro": "Design modern A-frame", "title_en": "Modern A-frame design", "desc_ro": "Rustic-chic și contemporan", "desc_en": "Rustic-chic and contemporary" },
+      { "icon": "⛰️", "title_ro": "Priveliște montană",   "title_en": "Mountain view",      "desc_ro": "Cadru natural spectaculos",  "desc_en": "Spectacular natural setting" },
+      { "icon": "🔥", "title_ro": "Seri călduroase",      "title_en": "Cozy evenings",      "desc_ro": "Confort alături de cei dragi","desc_en": "Comfort with your loved ones" }
+    ]
+  },
+
+  "gallery": [
+    { "src": "assets/gallery1.jpg", "alt_ro": "A-frame Sofi's House",         "alt_en": "A-frame Sofi's House" },
+    { "src": "assets/gallery2.jpg", "alt_ro": "Cabana la apus",               "alt_en": "Cabin at sunset" },
+    { "src": "assets/gallery3.jpg", "alt_ro": "Interior modern",              "alt_en": "Modern interior" },
+    { "src": "assets/gallery4.jpg", "alt_ro": "Ferestre panoramice",          "alt_en": "Panoramic windows" },
+    { "src": "assets/gallery5.jpg", "alt_ro": "Priveliște montană",           "alt_en": "Mountain view" }
+  ],
+
+  "images": {
+    "hero": "assets/hero.jpg",
+    "about": "assets/about.jpg",
+    "hero_slides": [
+      "assets/hero1.jpg",
+      "assets/hero2.jpg",
+      "assets/hero3.jpg",
+      "assets/hero4.jpg"
+    ],
+    "hero_video": ""
+  },
+
+  "calendar": {
+    "ical_booking_url": "",
+    "ical_airbnb_url": "",
+    "manually_blocked": []
+  },
+
+  "pricing": {
+    "weekday": 1200,
+    "weekend": 1600,
+    "currency": "RON",
+    "min_nights": 2,
+    "weekend_days": [5, 6, 0]
+  },
+
+  "reviews_url": "https://maps.app.goo.gl/bMeNSePcH2L6Bgv39",
+  "reviews": [],
+
+  "whatsapp": {
+    "phone": "40723178871",
+    "message_ro": "Bună ziua! Am văzut site-ul A-frame Sofi's House și aș dori mai multe informații despre disponibilitate.",
+    "message_en": "Hello! I saw the A-frame Sofi's House website and I would like more information about availability."
+  },
+
+  "booking": {
+    "emailjs_service_id": "",
+    "emailjs_template_id": "",
+    "emailjs_public_key": "",
+    "owner_email": "Aframe.sofis.house@gmail.com"
+  }
+}
